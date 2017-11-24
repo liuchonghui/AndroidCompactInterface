@@ -1,54 +1,62 @@
 package tool.imageloadercompact.activity;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.compact.impl.TaskCallback;
+import android.compact.impl.TaskImpl;
+import android.compact.impl.TaskPayload;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import tool.imageloadercompact.app2.R;
-import tool.imageloadercompact.fragment.MainFragment;
 
-public class MainActivity extends BaseFragmentActivity {
-    protected MainFragment mFragment;
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_frame);
-        initFragment();
-    }
+        setContentView(R.layout.activity_main);
 
-    public void initFragment() {
-        if (mFragment == null) {
-            mFragment = new MainFragment();
-        }
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragTransaction = fm.beginTransaction();
-        fragTransaction.add(R.id.content_frame, mFragment);
-        fragTransaction.commit();
-    }
+        final Button btn1 = (Button) findViewById(R.id.btn1);
+        final TextView btn1ret = (TextView) findViewById(R.id.btn1_ret);
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (mFragment != null) {
-            mFragment.onNewIntent(intent);
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (mFragment != null && mFragment.holdGoBack()) {
-                return mFragment.onKeyDown(keyCode, event);
-            } else {
-                if (mFragment != null) {
-                    mFragment.leaveCurrentPage();
-                }
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Task task = new Task();
+                TaskPayload payload = new TaskPayload();
+                payload.identify = "1";
+                task.run(view.getContext(), payload, new TaskCallback() {
+                    @Override
+                    public void onResult(TaskPayload payload) {
+                        btn1ret.setText(payload.identify + "|" + payload.state);
+                        Log.d("PPP", "task|onResult|" + payload.identify + "|" + payload.state);
+                    }
+                });
             }
-            return true;
+        });
+    }
+
+    class Task implements TaskImpl {
+        @Override
+        public void run(Context context, TaskPayload payload, TaskCallback callback) {
+            if (context == null || payload == null || payload.identify == null) {
+                return;
+            }
+
+            boolean success = false;
+            // TODO
+            payload.content = context.getPackageName();
+            success = true;
+
+            payload.state = success ? 1 : -1;
+
+            if (callback != null) {
+                callback.onResult(payload);
+            }
         }
-        return super.onKeyDown(keyCode, event);
     }
 }
