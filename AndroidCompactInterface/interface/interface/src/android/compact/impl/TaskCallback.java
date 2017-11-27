@@ -1,5 +1,7 @@
 package android.compact.impl;
 
-public interface TaskCallback {
+import java.io.Serializable;
+
+public interface TaskCallback extends Serializable {
     void onResult(TaskPayload payload);
 }

@@ -3,12 +3,19 @@ package android.compact.impl;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
+public class TaskPayload implements Parcelable {
 
-public class TaskPayload implements Parcelable, Serializable {
+    public TaskPayload() {
+        super();
+    }
+
     public String identify;
     public String title;
     public String content;
+    public String desc;
+    public String msg;
+    public String type;
+    public String md5;
     public String pkg;
     public String from;
     public String to;
@@ -16,18 +23,25 @@ public class TaskPayload implements Parcelable, Serializable {
     public String uri;
     public String path;
     public String auth;
+    public String tag;
+    public String cp;
     public String ex;
-    public long timestamp;
+    public String ch;
+    public String host;
+    public String sound;
+    public long ts;
+    public int color;
+    public int pos;
     public int state;
-
-    public TaskPayload() {
-        super();
-    }
 
     protected TaskPayload(Parcel in) {
         identify = in.readString();
         title = in.readString();
         content = in.readString();
+        desc = in.readString();
+        msg = in.readString();
+        type = in.readString();
+        md5 = in.readString();
         pkg = in.readString();
         from = in.readString();
         to = in.readString();
@@ -35,8 +49,15 @@ public class TaskPayload implements Parcelable, Serializable {
         uri = in.readString();
         path = in.readString();
         auth = in.readString();
+        tag = in.readString();
+        cp = in.readString();
         ex = in.readString();
-        timestamp = in.readLong();
+        ch = in.readString();
+        host = in.readString();
+        sound = in.readString();
+        ts = in.readLong();
+        color = in.readInt();
+        pos = in.readInt();
         state = in.readInt();
     }
 
@@ -62,6 +83,10 @@ public class TaskPayload implements Parcelable, Serializable {
         dest.writeString(identify);
         dest.writeString(title);
         dest.writeString(content);
+        dest.writeString(desc);
+        dest.writeString(msg);
+        dest.writeString(type);
+        dest.writeString(md5);
         dest.writeString(pkg);
         dest.writeString(from);
         dest.writeString(to);
@@ -69,8 +94,15 @@ public class TaskPayload implements Parcelable, Serializable {
         dest.writeString(uri);
         dest.writeString(path);
         dest.writeString(auth);
+        dest.writeString(tag);
+        dest.writeString(cp);
         dest.writeString(ex);
-        dest.writeLong(timestamp);
+        dest.writeString(ch);
+        dest.writeString(host);
+        dest.writeString(sound);
+        dest.writeLong(ts);
+        dest.writeInt(color);
+        dest.writeInt(pos);
         dest.writeInt(state);
     }
 }
