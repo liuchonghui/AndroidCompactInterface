@@ -3,19 +3,12 @@ package android.compact.impl;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class TaskPayload implements Parcelable {
+import java.io.Serializable;
 
-    public TaskPayload() {
-        super();
-    }
-
+public class TaskPayload implements Parcelable, Serializable {
     public String identify;
     public String title;
     public String content;
-    public String desc;
-    public String msg;
-    public String type;
-    public String md5;
     public String pkg;
     public String from;
     public String to;
@@ -23,25 +16,30 @@ public class TaskPayload implements Parcelable {
     public String uri;
     public String path;
     public String auth;
+    public String ex;
+    public long timestamp;
+    public int state;
+    // append at v1.1.1
+    public String desc;
+    public String msg;
+    public String type;
+    public String md5;
     public String tag;
     public String cp;
-    public String ex;
     public String ch;
     public String host;
     public String sound;
-    public long ts;
     public int color;
     public int pos;
-    public int state;
+
+    public TaskPayload() {
+        super();
+    }
 
     protected TaskPayload(Parcel in) {
         identify = in.readString();
         title = in.readString();
         content = in.readString();
-        desc = in.readString();
-        msg = in.readString();
-        type = in.readString();
-        md5 = in.readString();
         pkg = in.readString();
         from = in.readString();
         to = in.readString();
@@ -49,16 +47,21 @@ public class TaskPayload implements Parcelable {
         uri = in.readString();
         path = in.readString();
         auth = in.readString();
+        ex = in.readString();
+        timestamp = in.readLong();
+        state = in.readInt();
+        // append at v1.1.1
+        desc = in.readString();
+        msg = in.readString();
+        type = in.readString();
+        md5 = in.readString();
         tag = in.readString();
         cp = in.readString();
-        ex = in.readString();
         ch = in.readString();
         host = in.readString();
         sound = in.readString();
-        ts = in.readLong();
         color = in.readInt();
         pos = in.readInt();
-        state = in.readInt();
     }
 
     public static final Creator<TaskPayload> CREATOR = new Creator<TaskPayload>() {
@@ -83,10 +86,6 @@ public class TaskPayload implements Parcelable {
         dest.writeString(identify);
         dest.writeString(title);
         dest.writeString(content);
-        dest.writeString(desc);
-        dest.writeString(msg);
-        dest.writeString(type);
-        dest.writeString(md5);
         dest.writeString(pkg);
         dest.writeString(from);
         dest.writeString(to);
@@ -94,15 +93,20 @@ public class TaskPayload implements Parcelable {
         dest.writeString(uri);
         dest.writeString(path);
         dest.writeString(auth);
+        dest.writeString(ex);
+        dest.writeLong(timestamp);
+        dest.writeInt(state);
+        // append at v1.1.1
+        dest.writeString(desc);
+        dest.writeString(msg);
+        dest.writeString(type);
+        dest.writeString(md5);
         dest.writeString(tag);
         dest.writeString(cp);
-        dest.writeString(ex);
         dest.writeString(ch);
         dest.writeString(host);
         dest.writeString(sound);
-        dest.writeLong(ts);
         dest.writeInt(color);
         dest.writeInt(pos);
-        dest.writeInt(state);
     }
 }
