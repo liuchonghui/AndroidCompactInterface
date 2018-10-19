@@ -31,6 +31,17 @@ public class TaskPayload implements Parcelable, Serializable {
     public String sound;
     public int color;
     public int pos;
+    // append at v1.1.2
+    public String call;
+    public String query;
+    public String insert;
+    public String delete;
+    public String update;
+    public String ver;
+    public String cat;
+    public String model;
+    public int angle;
+    public int def;
 
     public TaskPayload() {
         super();
@@ -62,6 +73,18 @@ public class TaskPayload implements Parcelable, Serializable {
         sound = in.readString();
         color = in.readInt();
         pos = in.readInt();
+
+        // append at v1.1.2
+        call = in.readString();
+        query = in.readString();
+        insert = in.readString();
+        delete = in.readString();
+        update = in.readString();
+        ver = in.readString();
+        cat = in.readString();
+        model = in.readString();
+        angle = in.readInt();
+        def = in.readInt();
     }
 
     public static final Creator<TaskPayload> CREATOR = new Creator<TaskPayload>() {
@@ -108,5 +131,16 @@ public class TaskPayload implements Parcelable, Serializable {
         dest.writeString(sound);
         dest.writeInt(color);
         dest.writeInt(pos);
+        // append at v1.1.2
+        dest.writeString(call);
+        dest.writeString(query);
+        dest.writeString(insert);
+        dest.writeString(delete);
+        dest.writeString(update);
+        dest.writeString(ver);
+        dest.writeString(cat);
+        dest.writeString(model);
+        dest.writeInt(angle);
+        dest.writeInt(def);
     }
 }
