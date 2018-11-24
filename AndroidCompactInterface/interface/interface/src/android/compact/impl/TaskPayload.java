@@ -42,6 +42,8 @@ public class TaskPayload implements Parcelable, Serializable {
     public String model;
     public int angle;
     public int def;
+    // append at v2.0.0
+    public String _id;
 
     public TaskPayload() {
         super();
@@ -85,6 +87,9 @@ public class TaskPayload implements Parcelable, Serializable {
         model = in.readString();
         angle = in.readInt();
         def = in.readInt();
+
+        // append at v2.0.0
+        _id = in.readString();
     }
 
     public static final Creator<TaskPayload> CREATOR = new Creator<TaskPayload>() {
@@ -142,5 +147,7 @@ public class TaskPayload implements Parcelable, Serializable {
         dest.writeString(model);
         dest.writeInt(angle);
         dest.writeInt(def);
+        // append at v2.0.0
+        dest.writeString(_id);
     }
 }
